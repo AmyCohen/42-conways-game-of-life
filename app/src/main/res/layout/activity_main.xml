@@ -10,10 +10,19 @@
         android:id="@+id/canvasView"
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        app:layout_constraintBottom_toTopOf="@+id/controls"
+        app:layout_constraintBottom_toTopOf="@+id/value"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/value"
+        android:text="0"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/controls"

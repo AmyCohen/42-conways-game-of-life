@@ -138,5 +138,24 @@ public class SquareDrawingEngine {
         squares.add(square);
     }
 
+    /*
+    Pseudo Code:
+      public void toggle(xx, yy) {
+      row = convertXXToCol(xx)
+      col = convertYYToRow(yy)
+      grid[row][col] = !grid[row][col]
+      }
+
+    Also:
+      figure out what square is being clicked on by figuring out
+      - What is the width of the screen
+      - Divide that^ by the number of squares
+      - Divide cursor position by how many units its passed over
+        (Not sure on this^ last part)
+
+     Convert an x,y coordinate into an index of the array
+
+     */
+
 
 }

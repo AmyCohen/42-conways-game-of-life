@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     View.OnTouchListener {
 
     @BindView(R.id.canvasView) public ImageView imageView;
+    @BindView(R.id.value) public TextView valueDisplay;
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -47,10 +49,10 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        int size = 20;
-        cells = new boolean[size][size];
-        for (int row = 0; row < size; row ++) {
-            for (int col = 0; col < size; col++) {
+        int cellSize = 20;
+        cells = new boolean[cellSize][cellSize];
+        for (int row = 0; row < cellSize; row ++) {
+            for (int col = 0; col < cellSize; col++) {
                 cells[row][col] = Math.random() < .5;
             }
         }
@@ -63,29 +65,37 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        int action = event.getAction();
-        float xx = event.getX();
-        float yy = event.getY();
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        int action = motionEvent.getAction();
+        float xx = motionEvent.getX();
+        float yy = motionEvent.getY();
+
+        //played with it some and decided on Math.floor so I could get a 0 index shown. With everything as it shows now, I'm getting a 20x20 grid with a 0 through 19 index.
+        String line1 = "size: " + SIZE + " x: " + ((int)Math.floor(xx)) + " y: " + ((int)Math.floor(yy));
+        String line2 = "Col X = " + ((int)Math.floor(xx / SIZE)) + " \n Row Y = " + ((int)Math.floor(yy / SIZE));
 
         //just getting coordinates so we can see them
-//        valueDisplay.setText("size: " + SIZE + "x: " + (int)xx + " y: " + (int)yy);
-        drawGrid();
+        valueDisplay.setText(line1 + "\n" + line2);
 
         if (action == MotionEvent.ACTION_DOWN) {
+            Log.d("ACTION", "down");
             xDown = xx;
             yDown = yy;
 
             return true;
+
         } else if (action == MotionEvent.ACTION_UP) {
+            Log.d("ACTION", "up");
             xUp = xx;
             yUp = yy;
 
-//            drawAll();
             return true;
-        } else if (action == MotionEvent.ACTION_MOVE)
+
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            Log.d("ACTION", "move");
             xMove = xx;
             yMove = yy;
+        }
 
         return false;
     }
@@ -107,12 +117,6 @@ public class MainActivity extends AppCompatActivity
         mCanvas = new Canvas(mBitmap);
 
         drawGrid();
-    /*
-        Testing code:
-        Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
-        brush.setColor(Color.BLUE);
-        mCanvas.drawRect(50, 50, 50, 50, brush);
-     */
     }
 
 //    public void drawAll() {
@@ -127,18 +131,18 @@ public class MainActivity extends AppCompatActivity
         int height = imageView.getHeight();
         int width = imageView.getWidth();
         int smallest = Math.min(width, height);
-        int size = smallest/cells.length;
+        SIZE = smallest/cells.length;
 
         float x0 = 0;
         float y0 = 0;
 
-        float x1 = size;
-        float y1 = size;
+        float x1 = SIZE;
+        float y1 = SIZE;
 
 
         for (int row = 0; row < cells.length; row++) {
             x0 = 0;
-            x1 = size;
+            x1 = SIZE;
 
             for (int col = 0; col < cells[row].length; col++) {
                 int color;
@@ -155,13 +159,13 @@ public class MainActivity extends AppCompatActivity
                 mCanvas.drawRect(x0, y0, x1, y1, brush);
 
                 //update to the next column
-                x0 += size;
-                x1 += size;
+                x0 += SIZE;
+                x1 += SIZE;
             }
 
             //update the row
-            y0 += size;
-            y1 += size;
+            y0 += SIZE;
+            y1 += SIZE;
         }
         imageView.setImageBitmap(mBitmap);
     }
