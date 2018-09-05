@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -45,6 +46,18 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onGlobalLayout() {
+        initBitmap();
+    }
 
+    public void initBitmap () {
+        imageView.setOnTouchListener(this);
+
+        int width = imageView.getWidth();
+        int height = imageView.getHeight();
+
+        Log.d("DIMENSIONS", "" + width + "x" + height + "y");
+
+        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
     }
 }
