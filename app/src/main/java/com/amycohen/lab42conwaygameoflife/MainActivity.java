@@ -1,7 +1,10 @@
 package com.amycohen.lab42conwaygameoflife;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,4 +63,11 @@ public class MainActivity extends AppCompatActivity
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
     }
+
+    /*
+        Testing code:
+        Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
+        brush.setColor(Color.BLUE);
+        mCanvas.drawRect(50, 50, 50, 50, brush);
+     */
 }
