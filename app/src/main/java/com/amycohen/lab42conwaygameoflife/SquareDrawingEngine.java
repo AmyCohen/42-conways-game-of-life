@@ -1,10 +1,29 @@
 package com.amycohen.lab42conwaygameoflife;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.text.Layout;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Set;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SquareDrawingEngine {
+
+//    @BindView(R.id.canvasView) public ImageView imageView;
+//    @BindView(R.id.value) public TextView valueDisplay;
+    public ImageView imageView;
+
+    public Bitmap mBitmap;
+    public Canvas mCanvas;
+
     private Set<Square> squares;
     private boolean[][] gameBoard;
 
@@ -22,6 +41,77 @@ public class SquareDrawingEngine {
     private boolean hasEnoughToLive;
     private boolean hasTooManyToLive;
     private boolean hasEnoughToBeBorn;
+
+    int SIZE;
+    boolean[][] cells;
+
+//    public SquareDrawingEngine(Bitmap mBitmap) {
+//        this.mBitmap = mBitmap;
+//    }
+
+
+    public void createGridInfo() {
+        int cellSize = 20;
+        cells = new boolean[cellSize][cellSize];
+        for (int row = 0; row < cellSize; row ++) {
+            for (int col = 0; col < cellSize; col++) {
+                cells[row][col] = Math.random() < .5;
+            }
+        }
+    }
+
+    public Bitmap drawGrid(int width, int height) {
+        createGridInfo();
+
+        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+
+
+//        height = imageView.getHeight();
+//        width = imageView.getWidth();
+//        int height = imageView.getHeight();
+//        int width = imageView.getWidth();
+        int smallest = Math.min(width, height);
+        SIZE = smallest/cells.length;
+
+        float x0 = 0;
+        float y0 = 0;
+
+        float x1 = SIZE;
+        float y1 = SIZE;
+
+
+        for (int row = 0; row < cells.length; row++) {
+            x0 = 0;
+            x1 = SIZE;
+
+            for (int col = 0; col < cells[row].length; col++) {
+                int color;
+
+                if (cells[row][col] == true) {
+                    //Steve has this one white
+                    color = Color.BLACK;
+                } else {
+                    color = Color.WHITE;
+                }
+
+                Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
+                brush.setColor(color);
+                mCanvas.drawRect(x0, y0, x1, y1, brush);
+
+                //update to the next column
+                x0 += SIZE;
+                x1 += SIZE;
+            }
+
+            //update the row
+            y0 += SIZE;
+            y1 += SIZE;
+        }
+        return mBitmap;
+//        engine.doesHaveNeighbors(cells);
+    }
 
     public void drawGameBoard(){
 

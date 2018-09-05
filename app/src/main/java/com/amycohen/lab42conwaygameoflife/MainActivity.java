@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     private Canvas mCanvas;
 
 //    Not sure what it will be called yet, but supposed to use it
-    private SquareDrawingEngine engine;
+//    public SquareDrawingEngine engine = new SquareDrawingEngine();
 
     private float xDown;
     private float yDown;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
     private float yMove;
 
     int SIZE;
-    boolean[][] cells;
+//    boolean[][] cells;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,17 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        int cellSize = 20;
-        cells = new boolean[cellSize][cellSize];
-        for (int row = 0; row < cellSize; row ++) {
-            for (int col = 0; col < cellSize; col++) {
-                cells[row][col] = Math.random() < .5;
-            }
-        }
+//        int cellSize = 20;
+//        cells = new boolean[cellSize][cellSize];
+//        for (int row = 0; row < cellSize; row ++) {
+//            for (int col = 0; col < cellSize; col++) {
+//                cells[row][col] = Math.random() < .5;
+//            }
+//        }
+
+//        public int imageWidth = imageView.getWidth();
+//        public int imageHeight = imageView.getHeight();
+
 
         //From Steve's lecture
         ViewTreeObserver viewTreeObserver = imageView.getViewTreeObserver();
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+
         int action = motionEvent.getAction();
         float xx = motionEvent.getX();
         float yy = motionEvent.getY();
@@ -113,11 +118,18 @@ public class MainActivity extends AppCompatActivity
 
         Log.d("DIMENSIONS", "" + width + "x" + height + "y");
 
-        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
+//        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        mCanvas = new Canvas(mBitmap);
 
-        drawGrid();
+//        SquareDrawingEngine engine = new SquareDrawingEngine(mBitmap);
+//        SquareDrawingEngine engine = new SquareDrawingEngine(width, height);
+        SquareDrawingEngine engine = new SquareDrawingEngine();
+
+//        engine.drawGrid(width, height);
+        imageView.setImageBitmap(engine.drawGrid(width, height));
+
     }
+
 
 //    public void drawAll() {
 //        engine.drawAll(mCanvas);
@@ -127,48 +139,49 @@ public class MainActivity extends AppCompatActivity
 
     //from steve's mini-lecture
 
-    public void drawGrid() {
-        int height = imageView.getHeight();
-        int width = imageView.getWidth();
-        int smallest = Math.min(width, height);
-        SIZE = smallest/cells.length;
-
-        float x0 = 0;
-        float y0 = 0;
-
-        float x1 = SIZE;
-        float y1 = SIZE;
-
-
-        for (int row = 0; row < cells.length; row++) {
-            x0 = 0;
-            x1 = SIZE;
-
-            for (int col = 0; col < cells[row].length; col++) {
-                int color;
-
-                if (cells[row][col] == true) {
-                    //Steve has this one white
-                    color = Color.BLACK;
-                } else {
-                    color = Color.WHITE;
-                }
-
-                Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
-                brush.setColor(color);
-                mCanvas.drawRect(x0, y0, x1, y1, brush);
-
-                //update to the next column
-                x0 += SIZE;
-                x1 += SIZE;
-            }
-
-            //update the row
-            y0 += SIZE;
-            y1 += SIZE;
-        }
-        imageView.setImageBitmap(mBitmap);
-    }
+//    public void drawGrid() {
+//        int height = imageView.getHeight();
+//        int width = imageView.getWidth();
+//        int smallest = Math.min(width, height);
+//        SIZE = smallest/cells.length;
+//
+//        float x0 = 0;
+//        float y0 = 0;
+//
+//        float x1 = SIZE;
+//        float y1 = SIZE;
+//
+//
+//        for (int row = 0; row < cells.length; row++) {
+//            x0 = 0;
+//            x1 = SIZE;
+//
+//            for (int col = 0; col < cells[row].length; col++) {
+//                int color;
+//
+//                if (cells[row][col] == true) {
+//                    //Steve has this one white
+//                    color = Color.BLACK;
+//                } else {
+//                    color = Color.WHITE;
+//                }
+//
+//                Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
+//                brush.setColor(color);
+//                mCanvas.drawRect(x0, y0, x1, y1, brush);
+//
+//                //update to the next column
+//                x0 += SIZE;
+//                x1 += SIZE;
+//            }
+//
+//            //update the row
+//            y0 += SIZE;
+//            y1 += SIZE;
+//        }
+//        imageView.setImageBitmap(mBitmap);
+////        engine.doesHaveNeighbors(cells);
+//    }
 
 
 }
