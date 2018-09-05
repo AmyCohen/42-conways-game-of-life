@@ -4,21 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.text.Layout;
-import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.Set;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class SquareDrawingEngine {
 
-//    @BindView(R.id.canvasView) public ImageView imageView;
-//    @BindView(R.id.value) public TextView valueDisplay;
     public ImageView imageView;
 
     public Bitmap mBitmap;
@@ -45,9 +36,9 @@ public class SquareDrawingEngine {
     int SIZE;
     boolean[][] cells;
 
-//    public SquareDrawingEngine(Bitmap mBitmap) {
-//        this.mBitmap = mBitmap;
-//    }
+    public int getSize() {
+        return this.SIZE;
+    }
 
 
     public void createGridInfo() {
@@ -66,12 +57,6 @@ public class SquareDrawingEngine {
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
 
-
-
-//        height = imageView.getHeight();
-//        width = imageView.getWidth();
-//        int height = imageView.getHeight();
-//        int width = imageView.getWidth();
         int smallest = Math.min(width, height);
         SIZE = smallest/cells.length;
 
