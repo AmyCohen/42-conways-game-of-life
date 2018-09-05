@@ -1,5 +1,7 @@
 package com.amycohen.lab42conwaygameoflife;
 
+import android.graphics.Canvas;
+
 import java.util.Set;
 
 public class SquareDrawingEngine {
@@ -39,8 +41,8 @@ public class SquareDrawingEngine {
         for(int row = 0; row < gameBoard.length; row++) {
             for (int col = 0; col < gameBoard[row].length; col++) {
                 if (gameBoard[row][col] == true) {
-                    //add location of square to squares Set
-                    //draw a square at a location on the canvas
+                    //First, draw a square at a location on the canvas
+                    //Next, add location of square to squares Set
                 }
             }
         }
@@ -125,4 +127,16 @@ public class SquareDrawingEngine {
             }
         }
     }
+
+    public void drawAll(Canvas canvas) {
+        for (Square square : squares) {
+            square.draw(canvas);
+        }
+    }
+
+    public void add(Square square) {
+        squares.add(square);
+    }
+
+
 }

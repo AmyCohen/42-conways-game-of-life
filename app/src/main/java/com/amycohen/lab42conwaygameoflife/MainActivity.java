@@ -26,7 +26,19 @@ public class MainActivity extends AppCompatActivity
     private Canvas mCanvas;
 
 //    Not sure what it will be called yet, but supposed to use it
-//    private Engine engine
+    private SquareDrawingEngine engine;
+
+    private float xDown;
+    private float yDown;
+
+    private float xUp;
+    private float yUp;
+
+    private float xMove;
+    private float yMove;
+
+    int SIZE;
+    boolean[][] cells;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        int size = 20;
+        cells = new boolean[size][size];
+        for (int row = 0; row < size; row ++) {
+            for (int col = 0; col < size; col++) {
+                cells[row][col] = Math.random() < .5;
+            }
+        }
 
         //From Steve's lecture
         ViewTreeObserver viewTreeObserver = imageView.getViewTreeObserver();
@@ -44,6 +64,29 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        int action = event.getAction();
+        float xx = event.getX();
+        float yy = event.getY();
+
+        //just getting coordinates so we can see them
+//        valueDisplay.setText("size: " + SIZE + "x: " + (int)xx + " y: " + (int)yy);
+        drawGrid();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            xDown = xx;
+            yDown = yy;
+
+            return true;
+        } else if (action == MotionEvent.ACTION_UP) {
+            xUp = xx;
+            yUp = yy;
+
+            drawAll();
+            return true;
+        } else if (action == MotionEvent.ACTION_MOVE)
+            xMove = xx;
+            yMove = yy;
+
         return false;
     }
 
@@ -69,4 +112,57 @@ public class MainActivity extends AppCompatActivity
         mCanvas.drawRect(50, 50, 50, 50, brush);
      */
     }
+
+    public void drawAll() {
+        engine.drawAll(mCanvas);
+        imageView.setImageBitmap(mBitmap);
+    }
+
+
+    //from steve's mini-lecture
+
+    public void drawGrid() {
+//        int size = 100;
+        int height = imageView.getHeight();
+        int width = imageView.getWidth();
+        int smallest = Math.min(width, height);
+        int size = smallest/cells.length;
+
+        float x0 = 0;
+        float y0 = 0;
+
+        float x1 = size;
+        float y1 = size;
+
+        int color;
+
+        for (int row = 0; row < cells.length; row++) {
+            x0 = 0;
+//            x1 = size;
+
+            for (int col = 0; col < cells[row].length; col++) {
+                int black = Color.BLACK;
+                int white = Color.WHITE;
+                if (cells[row][col] == true) {
+                    color = Color.BLACK;
+                } else {
+                    color = Color.WHITE;
+                }
+
+                Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
+                brush.setColor(color);
+                mCanvas.drawRect(x0, y0, x1, y1, brush);
+
+                //update to the next column
+                x0 += size;
+                x1 =+ size;
+            }
+
+            //update the row
+            y0 += size;
+            y1 += size;
+        }
+    }
+
+
 }
