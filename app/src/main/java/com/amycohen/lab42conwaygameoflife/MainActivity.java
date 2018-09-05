@@ -69,5 +69,4 @@ public class MainActivity extends AppCompatActivity
         mCanvas.drawRect(50, 50, 50, 50, brush);
      */
     }
-
 }
