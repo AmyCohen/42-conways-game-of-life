@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
             xUp = xx;
             yUp = yy;
 
-            drawAll();
+//            drawAll();
             return true;
         } else if (action == MotionEvent.ACTION_MOVE)
             xMove = xx;
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity
 
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
+
+        drawGrid();
     /*
         Testing code:
         Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -113,16 +115,15 @@ public class MainActivity extends AppCompatActivity
      */
     }
 
-    public void drawAll() {
-        engine.drawAll(mCanvas);
-        imageView.setImageBitmap(mBitmap);
-    }
+//    public void drawAll() {
+//        engine.drawAll(mCanvas);
+//        imageView.setImageBitmap(mBitmap);
+//    }
 
 
     //from steve's mini-lecture
 
     public void drawGrid() {
-//        int size = 100;
         int height = imageView.getHeight();
         int width = imageView.getWidth();
         int smallest = Math.min(width, height);
@@ -134,16 +135,16 @@ public class MainActivity extends AppCompatActivity
         float x1 = size;
         float y1 = size;
 
-        int color;
 
         for (int row = 0; row < cells.length; row++) {
             x0 = 0;
-//            x1 = size;
+            x1 = size;
 
             for (int col = 0; col < cells[row].length; col++) {
-                int black = Color.BLACK;
-                int white = Color.WHITE;
+                int color;
+
                 if (cells[row][col] == true) {
+                    //Steve has this one white
                     color = Color.BLACK;
                 } else {
                     color = Color.WHITE;
@@ -155,13 +156,14 @@ public class MainActivity extends AppCompatActivity
 
                 //update to the next column
                 x0 += size;
-                x1 =+ size;
+                x1 += size;
             }
 
             //update the row
             y0 += size;
             y1 += size;
         }
+        imageView.setImageBitmap(mBitmap);
     }
 
 
