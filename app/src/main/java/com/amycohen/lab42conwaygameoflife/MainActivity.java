@@ -62,12 +62,12 @@ public class MainActivity extends AppCompatActivity
 
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
-    }
-
     /*
         Testing code:
         Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
         brush.setColor(Color.BLUE);
         mCanvas.drawRect(50, 50, 50, 50, brush);
      */
+    }
+
 }
