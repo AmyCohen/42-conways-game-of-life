@@ -35,6 +35,15 @@ public class SquareDrawingEngine {
             {false, true, true, false, false, false, false, false, false, false},
             {false, false, false, false, false, false, false, false, false, true},
         };
+
+        for(int row = 0; row < gameBoard.length; row++) {
+            for (int col = 0; col < gameBoard[row].length; col++) {
+                if (gameBoard[row][col] == true) {
+                    //add location of square to squares Set
+                    //draw a square at a location on the canvas
+                }
+            }
+        }
     }
 
     // Copied from my whiteboard day04:
