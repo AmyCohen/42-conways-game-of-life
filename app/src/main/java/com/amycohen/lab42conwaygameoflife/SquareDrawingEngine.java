@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.util.HashSet;
@@ -20,6 +21,8 @@ public class SquareDrawingEngine {
     private boolean[][] gameBoard;
 
     public boolean hasSquare;
+    private boolean isGrabbing;
+    private Square currentSquare;
 
     //Not sure on these yet. Still reasoning how to accomplish the laws and how to call them in the program
 
@@ -39,6 +42,22 @@ public class SquareDrawingEngine {
 
     public int getSize() {
         return this.SIZE;
+    }
+
+    public boolean isGrabbing() {
+        return this.isGrabbing;
+    }
+
+    public boolean grab(float xx, float yy) {
+        for (Square square : this.squares) {
+            if(square.equals(xx) && square.equals(yy)) {
+                isGrabbing = true;
+                currentSquare = square;
+                Log.d("GRABBING", "TRUE");
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -80,10 +99,12 @@ public class SquareDrawingEngine {
                     color = Color.BLACK;
                     Square square = new Square(col, row, SIZE, SIZE, color);
                     squares.add(square);
+                    Log.d("ADDED SQUARE", square.toString());
                 } else {
                     color = Color.WHITE;
-                    Square square = new Square(col, row, width, height, color);
+                    Square square = new Square(col, row, SIZE, SIZE, color);
                     squares.add(square);
+                    Log.d("ADDED_SQUARE", square.toString());
                 }
 
                 Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -217,6 +238,9 @@ public class SquareDrawingEngine {
     public void add(Square square) {
 //        squares = new HashSet<>();
         square = new Square(square.getX(), square.getY(), square.getWidth(), square.getHeight(), square.getColor());
+//        Log.d("GETX", String.valueOf(square.getX()));
+//        Log.d("GETY", String.valueOf(square.getX()));
+
         squares.add(square);
 
     }

@@ -10,6 +10,7 @@ drawRect(int x, int y, int width, int height)
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.Set;
 
@@ -64,14 +65,32 @@ public class Square {
         canvas.drawRect(this.xx, this.yy, this.width, this.height, brush);
     }
 
-    public void addSquare(float xx, float yy, float width, float height, int color){
-//        squares.add(this.xx, this.yy, this.width, this.height, this.color);
-        this.xx = xx;
-        this.yy = yy;
-        this.width = width;
-        this.height = height;
-        this.color = color;
+//    public void addSquare(float xx, float yy, float width, float height, int color){
+////        squares.add(this.xx, this.yy, this.width, this.height, this.color);
+//        this.xx = xx;
+//        this.yy = yy;
+//        this.width = width;
+//        this.height = height;
+//        this.color = color;
+//    }
+
+    public boolean contains(float xx, float yy) {
+        float dx = this.xx - xx;
+        float dy = this.yy - yy;
+
+//        double distance
+        return dx > width && dy > height;
     }
 
+    @Override
+    public String toString(){
+        String color = "";
+        if (this.color == -1) {
+            color = "white";
+        } else {
+            color = "black";
+        }
+        return "[X: " + (int)this.xx + ", Y: " + (int)this.yy + ", W: " + (int)this.width + ", H: " + (int)this.height + ", C: " + color;
+    }
 
 }
