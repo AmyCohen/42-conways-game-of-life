@@ -60,6 +60,32 @@ public class SquareDrawingEngine {
         return false;
     }
 
+    public boolean toggleSquare(float xx, float yy) {
+
+        for (Square square : this.squares) {
+
+            String color = "";
+            if (square.getColor() == -1) {
+                color = "white";
+            } else {
+                color = "black";
+            }
+
+            if(square.equals(xx) && square.equals(yy)) {
+                isGrabbing = true;
+                currentSquare = square;
+                Log.d("GRABBING", "TRUE");
+                if (color.equals("white")) {
+                    color = "black";
+                } else {
+                    color = "white";
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void createGridInfo() {
         int cellSize = 20;

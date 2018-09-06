@@ -59,6 +59,8 @@ public class Square {
         return this.color;
     }
 
+    
+
     public void draw(Canvas canvas) {
         Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
         brush.setColor(this.color);
