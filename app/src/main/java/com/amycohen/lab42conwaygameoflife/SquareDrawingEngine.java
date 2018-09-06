@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.widget.ImageView;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class SquareDrawingEngine {
@@ -15,7 +16,7 @@ public class SquareDrawingEngine {
     public Bitmap mBitmap;
     public Canvas mCanvas;
 
-    private Set<Square> squares;
+    private Set<Square> squares = new HashSet<>();
     private boolean[][] gameBoard;
 
     public boolean hasSquare;
@@ -77,8 +78,12 @@ public class SquareDrawingEngine {
                 if (cells[row][col] == true) {
                     //Steve has this one white
                     color = Color.BLACK;
+                    Square square = new Square(col, row, SIZE, SIZE, color);
+                    squares.add(square);
                 } else {
                     color = Color.WHITE;
+                    Square square = new Square(col, row, width, height, color);
+                    squares.add(square);
                 }
 
                 Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -210,7 +215,10 @@ public class SquareDrawingEngine {
     }
 
     public void add(Square square) {
+//        squares = new HashSet<>();
+        square = new Square(square.getX(), square.getY(), square.getWidth(), square.getHeight(), square.getColor());
         squares.add(square);
+
     }
 
     /*

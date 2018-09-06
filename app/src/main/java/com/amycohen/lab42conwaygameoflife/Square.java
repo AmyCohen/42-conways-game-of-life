@@ -11,12 +11,16 @@ drawRect(int x, int y, int width, int height)
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.Set;
+
 public class Square {
     private float xx;
     private float yy;
     private float width;
     private float height;
     private int color;
+
+    private Set<Square> squares;
 
     public Square(float xx, float yy, float width, float height, int color) {
         this.xx = xx;
@@ -42,12 +46,32 @@ public class Square {
         return this.yy;
     }
 
+    public float getWidth() {
+        return this.width;
+    }
+
+    public float getHeight() {
+        return this.height;
+    }
+
+    public int getColor() {
+        return this.color;
+    }
+
     public void draw(Canvas canvas) {
         Paint brush = new Paint(Paint.ANTI_ALIAS_FLAG);
         brush.setColor(this.color);
         canvas.drawRect(this.xx, this.yy, this.width, this.height, brush);
     }
 
+    public void addSquare(float xx, float yy, float width, float height, int color){
+//        squares.add(this.xx, this.yy, this.width, this.height, this.color);
+        this.xx = xx;
+        this.yy = yy;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
 
 
 }

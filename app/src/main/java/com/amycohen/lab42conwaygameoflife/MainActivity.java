@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onGlobalLayout() {
         initBitmap();
+//        engine.doesHaveNeighbors();
     }
 
     public void initBitmap() {
